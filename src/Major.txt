@@ -1,0 +1,555 @@
+/** Alejandro Mijares
+* March 12, 2023
+* Panther ID: 3145563
+* Program Version: 1.0
+* Java Version: 8
+*/
+
+/**
+ * Class that establishes a pattern for college Majors.
+ * Contains relevant information like the Major's name, minimum GPA, average salary,
+ * and whether it requires calculus.
+ */
+public class Major {
+    /**
+     * Class variables
+     */
+    private String majorName;
+    private Double minimumGPA;
+    private int averageSalary;
+    private boolean requiresCalculus;
+
+    /**
+     * Getter and setter functions
+     */
+
+    public String getMajorName() {
+        return majorName;
+    }
+
+    public void setMajorName(String newMajorName) {
+        majorName = newMajorName;
+    }
+
+    public Double getMinimumGPA() {
+        return minimumGPA;
+    }
+
+    public void setMinimumGPA(Double newMinimumGPA) {
+        minimumGPA = newMinimumGPA;
+    }
+
+    public int getAverageSalary() {
+        return averageSalary;
+    }
+
+    public void setAverageSalary(int newAverageSalary) {
+        averageSalary = newAverageSalary;
+    }
+
+    public boolean doesItRequireCalculus() {
+        return requiresCalculus;
+    }
+
+    public void setNeedsCalculus(boolean newRequiresCalculus) {
+        requiresCalculus = newRequiresCalculus;
+    }
+
+    /**
+     * Constructor
+     */
+    public Major(String newMajorName,
+                 Double newMinimumGPA,
+                 int newAverageSalary,
+                 boolean newRequiresCalculus) {
+        setMajorName(newMajorName);
+        setMinimumGPA(newMinimumGPA);
+        setAverageSalary(newAverageSalary);
+        setNeedsCalculus(newRequiresCalculus);
+    }
+
+    /**
+     * Overridden equality checker
+     * Verifies that a passed object is equal to this object.
+     */
+    @Override
+    public boolean equals(Object potentialMajor) {
+        if (this == potentialMajor) return true;
+        if (potentialMajor == null || getClass() != potentialMajor.getClass()) return false;
+        Major major = (Major) potentialMajor;
+        return getAverageSalary() == major.getAverageSalary()
+                && doesItRequireCalculus() == major.doesItRequireCalculus()
+                && getMajorName().equals(major.getMajorName())
+                && getMinimumGPA().equals(major.getMinimumGPA());
+    }
+
+    /**
+     * Overridden toString function
+     * Returns a summary of the Major's information.
+     */
+    @Override
+    public String toString() {
+        return "The major " + getMajorName() +
+                " requires a minimum GPA of " + getMinimumGPA() +
+                ", has an average annual graduate salary of $" + getAverageSalary() +
+                ", and it is " + doesItRequireCalculus() + " that it needs Calculus.";
+    }
+}
+
+_____________________________________________________________________________________________________________________________________
+/**
+ * Class for Math major
+ * Extends Major class, and adds the variable that states whether Discrete Math is needed.
+ */
+public class Math extends Major{
+    /**
+     *  Class Variables
+     */
+    private boolean requiresDiscreteMath;
+    /**
+     *  Constructor
+     */
+    public Math(String newMajorName,
+                Double newMinimumGPA,
+                int newAverageSalary,
+                boolean newRequiresCalculus,
+                boolean newRequiresDiscreteMath) {
+        super(newMajorName,
+                newMinimumGPA,
+                newAverageSalary,
+                newRequiresCalculus);
+        setRequiresDiscreteMath(newRequiresDiscreteMath);
+    }
+
+    /**
+     * Getters and Setters
+     */
+    public boolean doesItRequireDiscreteMath() {
+        return requiresDiscreteMath;
+    }
+
+    public void setRequiresDiscreteMath(boolean newRequiresDiscreteMath) {
+        requiresDiscreteMath = newRequiresDiscreteMath;
+    }
+
+    /**
+     *  Overridden equality checker
+     *  Adds discrete math check to Major's checks.
+     */
+    @Override
+    public boolean equals(Object potentialMajor) {
+        if (super.equals(potentialMajor)){
+            Math major = (Math) potentialMajor;
+            return doesItRequireDiscreteMath() == major.doesItRequireDiscreteMath();
+        }
+        return false;
+    }
+
+    /**
+     *  Overridden toString function
+     *  Adds Discrete Math description to Major's toString function
+     */
+    @Override
+    public String toString() {
+        return super.toString() + " It is " + doesItRequireDiscreteMath() +
+                " that this major also requires Discrete Math.";
+    }
+}
+_____________________________________________________________________________________________________________________________________
+/**
+ *  Class for Computer Science major
+ *  Extends Math Major class, which itself extends the Major class
+ *  Adds a check for Data Structures as a requirement
+ */
+public class ComputerScience extends Math{
+    /**
+     *  Class variables
+     */
+    private boolean requiresDataStructures;
+
+    /**
+     *  Constructor
+     */
+    public ComputerScience(String newMajorName,
+                           Double newMinimumGPA,
+                           int newAverageSalary,
+                           boolean newRequiresCalculus,
+                           boolean newRequiresDiscreteMath,
+                           boolean newRequiresDataStructures) {
+        super(newMajorName,
+                newMinimumGPA,
+                newAverageSalary,
+                newRequiresCalculus,
+                newRequiresDiscreteMath);
+        setRequiresDataStructures(newRequiresDataStructures);
+    }
+
+    /**
+     *  Getters and Setters
+     */
+    public boolean doesItRequireDataStructures() {
+        return requiresDataStructures;
+    }
+
+    public void setRequiresDataStructures(boolean newRequiresDataStructures) {
+        requiresDataStructures = newRequiresDataStructures;
+    }
+
+    /**
+     * Overridden equality checker
+     * Adds Data Structures check to Math's checks.
+     */
+    @Override
+    public boolean equals(Object potentialMajor) {
+        if (super.equals(potentialMajor)){
+            ComputerScience major = (ComputerScience) potentialMajor;
+            return doesItRequireDataStructures() == major.doesItRequireDataStructures();
+        }
+        return false;
+    }
+
+    /**
+     *  Overridden toString function
+     *  Adds Data Structures description to Math's toString function
+     */
+    @Override
+    public String toString() {
+        return super.toString() + " It is also " + doesItRequireDataStructures() +
+                " that this major also requires Data Structures.";
+    }
+}
+_____________________________________________________________________________________________________________________________________
+/**
+ * Class for Electrical Engineering major
+ * Extends Major class, and adds the variable that states whether Fields and Waves is needed.
+ */
+public class ElectricalEngineering extends Major{
+    /**
+     *  Class Variables
+     */
+    private boolean requiresFieldsAndWaves;
+    /**
+     *  Constructor
+     */
+    public ElectricalEngineering(String newMajorName,
+                                 Double newMinimumGPA,
+                                 int newAverageSalary,
+                                 boolean newRequiresCalculus,
+                                 boolean newRequiresFieldsAndWaves) {
+        super(newMajorName,
+                newMinimumGPA,
+                newAverageSalary,
+                newRequiresCalculus);
+        setRequiresFieldsAndWaves(newRequiresFieldsAndWaves);
+    }
+
+    /**
+     * Getters and Setters
+     */
+
+    public boolean doesItRequireFieldsAndWaves() {
+        return requiresFieldsAndWaves;
+    }
+
+    public void setRequiresFieldsAndWaves(boolean newRequiresFieldsAndWaves) {
+        requiresFieldsAndWaves = newRequiresFieldsAndWaves;
+    }
+
+    /**
+     *  Overridden equality checker
+     *  Adds Fields and Waves check to Major's checks.
+     */
+
+    @Override
+    public boolean equals(Object potentialMajor) {
+        if (super.equals(potentialMajor)){
+            ElectricalEngineering major = (ElectricalEngineering) potentialMajor;
+            return doesItRequireFieldsAndWaves() == major.doesItRequireFieldsAndWaves();
+        }
+        return false;
+    }
+
+    /**
+     *  Overridden toString function
+     *  Adds Fields and Waves description to Major's toString function
+     */
+
+    @Override
+    public String toString() {
+        return super.toString() + " It is " + doesItRequireFieldsAndWaves() +
+                " that this major also requires Fields and Waves";
+    }
+}
+_____________________________________________________________________________________________________________________________________
+/**
+ *  Class for Statistics major
+ *  Extends Math Major class, which itself extends the Major class
+ *  Adds a check for Statistical Methods as a requirement
+ */
+public class Statistics extends Math{
+    /**
+     *  Class variables
+     */
+    private Boolean requiresStatisticalMethods;
+
+    /**
+     *  Constructor
+     */
+    public Statistics(String newMajorName,
+                      Double newMinimumGPA,
+                      int newAverageSalary,
+                      boolean newRequiresCalculus,
+                      boolean newRequiresDiscreteMath,
+                      boolean newRequiresStatisticalMethods) {
+        super(newMajorName,
+                newMinimumGPA,
+                newAverageSalary,
+                newRequiresCalculus,
+                newRequiresDiscreteMath);
+        setRequiresStatisticalMethods(newRequiresStatisticalMethods);
+    }
+
+    /**
+     *  Getters and Setters
+     */
+
+    public Boolean doesItRequireStatisticalMethods() {
+        return requiresStatisticalMethods;
+    }
+
+    public void setRequiresStatisticalMethods(Boolean newRequiresStatisticalMethods) {
+        requiresStatisticalMethods = newRequiresStatisticalMethods;
+    }
+
+    /**
+     * Overridden equality checker
+     * Adds Statistical Methods check to Math's checks.
+     */
+
+    @Override
+    public boolean equals(Object potentialMajor) {
+        if (super.equals(potentialMajor)){
+            Statistics major = (Statistics) potentialMajor;
+            return doesItRequireStatisticalMethods() == major.doesItRequireStatisticalMethods();
+        }
+        return false;
+    }
+
+    /**
+     *  Overridden toString function
+     *  Adds Statistical Methods description to Math's toString function
+     */
+    @Override
+    public String toString() {
+        return super.toString() + " It is " + doesItRequireStatisticalMethods() +
+                " that this major also requires Statistical Methods.";
+    }
+}
+_____________________________________________________________________________________________________________________________________
+/**
+ * Class for English major
+ * Extends Major class, and adds the variable that states whether Creative Writing is needed.
+ */
+public class English extends Major{
+    /**
+     *  Class Variables
+     */
+    private boolean requiresCreativeWriting;
+    /**
+     *  Constructor
+     */
+    public English(String newMajorName,
+                   Double newMinimumGPA,
+                   int newAverageSalary,
+                   boolean newRequiresCalculus,
+                   boolean newRequiresCreativeWriting) {
+        super(newMajorName,
+                newMinimumGPA,
+                newAverageSalary,
+                newRequiresCalculus);
+        setRequiresCreativeWriting(newRequiresCreativeWriting);
+    }
+
+    /**
+     * Getters and Setters
+     */
+
+    public boolean doesItRequireCreativeWriting() {
+        return requiresCreativeWriting;
+    }
+
+    public void setRequiresCreativeWriting(boolean newRequiresCreativeWriting) {
+        requiresCreativeWriting = newRequiresCreativeWriting;
+    }
+
+    /**
+     *  Overridden equality checker
+     *  Adds Creative Writing check to Major's checks.
+     */
+
+    @Override
+    public boolean equals(Object potentialMajor) {
+        if (super.equals(potentialMajor)){
+            English major = (English) potentialMajor;
+            return doesItRequireCreativeWriting() == major.doesItRequireCreativeWriting();
+        }
+        return false;
+    }
+
+    /**
+     *  Overridden toString function
+     *  Adds Creative Writing description to Major's toString function
+     */
+
+    @Override
+    public String toString() {
+        return super.toString() + " Also, it is " + doesItRequireCreativeWriting() +
+                " that this major requires Creative Writing.";
+    }
+}
+_____________________________________________________________________________________________________________________________________
+/**
+ * Class for Computer Engineering major
+ * Extends Electrical Engineering class, which itself extends the Major class.
+ * Adds the variable that states whether Computer Design is needed.
+ */
+public class ComputerEngineering extends ElectricalEngineering{
+    /**
+     *  Class Variables
+     */
+
+    private boolean requiresComputerDesign;
+    /**
+     *  Constructor
+     */
+    public ComputerEngineering(String newMajorName,
+                               Double newMinimumGPA,
+                               int newAverageSalary,
+                               boolean newRequiresCalculus,
+                               boolean newRequiresFieldsAndWaves,
+                               boolean newRequiresComputerDesign) {
+        super(newMajorName,
+                newMinimumGPA,
+                newAverageSalary,
+                newRequiresCalculus,
+                newRequiresFieldsAndWaves);
+        setRequiresComputerDesign(newRequiresComputerDesign);
+    }
+
+    /**
+     * Getters and Setters
+     */
+
+    public boolean doesItRequireComputerDesign() {
+        return requiresComputerDesign;
+    }
+
+    public void setRequiresComputerDesign(boolean newRequiresComputerDesign) {
+        requiresComputerDesign = newRequiresComputerDesign;
+    }
+
+    /**
+     *  Overridden equality checker
+     *  Adds Computer Design check to Major's checks.
+     */
+
+    @Override
+    public boolean equals(Object potentialMajor) {
+        if (super.equals(potentialMajor)){
+            ComputerEngineering major = (ComputerEngineering) potentialMajor;
+            return doesItRequireComputerDesign() == major.doesItRequireComputerDesign();
+        }
+        return false;
+    }
+
+    /**
+     *  Overridden toString function
+     *  Adds Computer Design description to Major's toString function
+     */
+
+    @Override
+    public String toString() {
+        return super.toString() + " Also, it is " + doesItRequireComputerDesign() +
+                " that this major also requires Computer Design";
+    }
+}
+_____________________________________________________________________________________________________________________________________
+/** Alejandro Mijares
+ * March 12, 2023
+ * Panther ID: 3145563
+ * Program Version: 1.0
+ * Java Version: 8
+ */
+
+/**
+ *  Tester class for the Major class and subclasses
+ *  Creates an object of each major, and then returns the variables of each created object.
+ */
+import java.util.ArrayList;
+public class MajorTester {
+    public static void main(String [] args){
+        /**
+         * Class variable
+         * Array list that will contain all majors
+         */
+        ArrayList<Major> majors = new ArrayList<Major>();
+
+        /**
+         * Major object initializers
+         * Upon creation, each object will be added to the majors array list
+         */
+
+        majors.add(new ElectricalEngineering("Electrical Engineering",
+                                                3.0,
+                                                91887,
+                                                true,
+                                                true));
+        majors.add(new ComputerEngineering("Computer Engineering",
+                                            3.0,
+                                            82917,
+                                            true,
+                                            false,
+                                            true));
+        majors.add(new Math("Mathematics",
+                            3.5,
+                            99029,
+                            true,
+                            true));
+        majors.add(new ComputerScience("Computer Science",
+                                        3.0,
+                                        92381,
+                                        true,
+                                        false,
+                                        true));
+        majors.add(new Statistics("Statistics",
+                                    3.5,
+                                    86960,
+                                    true,
+                                    false,
+                                    true));
+        majors.add(new English("English",
+                                2.5,
+                                59851,
+                                false,
+                                true));
+
+        /**
+         * Loop to iterate through each Major object, and print its details
+         */
+
+        for (int i = 0; i < majors.size(); i++){
+            System.out.println(majors.get(i).toString() + '\n');
+            /**
+             * For loop that checks for duplicate majors using the builtin equality checker
+             */
+            for (int j = i+1; j < majors.size(); j++){
+                if (majors.get(j).equals(majors.get(i))){
+                    System.out.println(majors.get(i).getMajorName()
+                                        + " is the same as "
+                                        + majors.get(j).getMajorName() + '!');
+                }
+            }
+        }
+    }
+}
+_____________________________________________________________________________________________________________________________________
